@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useNavigate }  from "react-router-dom"
 import { userAuth } from '../context/AuthContext';
+import {loginUpValidate} from '../utilities/login'
+
+
 function Login() {
   const [rememberLogin,setRememberLogin] = useState(true)
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
+  const [error,setError] = useState('')
   const {user,Login} = userAuth()
   const navigate = useNavigate()
   const handlesubmit= async (e)=>{
     e.preventDefault()
+    const validationError = loginUpValidate(email,password)
+    if (validationError) {
+      setError(validationError)
+      return
+    }
     try {
       await Login(email,password)
       navigate('/')
@@ -49,6 +58,7 @@ function Login() {
                   value={password}
                   onChange={(e)=>setPassword(e.target.value)}
                 />
+                 <p className='pt-6 text-center text-red-600'>{error}</p>
                 <button className='bg-red-600 py-3 my-6 rounded font-nsans-bold text-white'>Login</button>
                 <div className='flex justify-between items-center text-sm text-gray-600'>
                   <p><input type='checkbox' checked={rememberLogin}

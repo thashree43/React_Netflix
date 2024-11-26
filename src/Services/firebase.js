@@ -12,6 +12,7 @@ VITE_FIREBASE_STORAGE_BUCKET,
 VITE_FIREBASE_MESSAGING_SENDERID,
 VITE_FIREBASE_API_ID 
 }=import.meta.env
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: VITE_FIREBASE_API_KEY,
